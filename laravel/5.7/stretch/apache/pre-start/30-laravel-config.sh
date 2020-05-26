@@ -5,6 +5,7 @@ source ${PHP_CONTAINER_SCRIPTS_PATH}/common.sh
 log_info 'Processing laravel configuration ...'
 
 LARAVEL_CONFIG_CACHE=${LARAVEL_CONFIG_CACHE:-1}
+LARAVEL_OPTIMIZE=${LARAVEL_OPTIMIZE:-1}
 LARAVEL_SECRETS=${LARAVEL_SECRETS:-1}
 LARAVEL_ENV_EXAMPLE_FILES=${LARAVEL_ENV_EXAMPLE_FILES:-.env.example}
 LARAVEL_ENV_FILES=${LARAVEL_ENV_FILES:-.env}
@@ -64,6 +65,14 @@ function artisan_config_cache {
         log_and_run php artisan config:cache
     fi    
 }
+
+function artisan_optimize {
+    if [ "${LARAVEL_CONFIG_CACHE}" -ne 0 ] && [ ! -z "${LARAVEL_OPTIMIZE}" ]
+    then
+        log_and_run php artisan optimize
+    fi
+}
+    
 
 process_laravel_env_files
 process_laravel_docker_secrets
