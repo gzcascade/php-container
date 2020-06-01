@@ -79,6 +79,3 @@ COPY --from=source /app ${APP_DATA}
 
 USER 1001
 WORKDIR ${HOME}
-
-ENTRYPOINT [ "uid_entrypoint" ]
-CMD [ "run" ]
